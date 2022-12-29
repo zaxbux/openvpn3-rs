@@ -1,0 +1,105 @@
+<!DOCTYPE node PUBLIC "-//freedesktop//DTD D-BUS Object Introspection 1.0//EN" "http://www.freedesktop.org/standards/dbus/1.0/introspect.dtd">
+<!-- GDBus 2.72.1 -->
+<node>
+  <interface name="org.freedesktop.DBus.Properties">
+    <method name="Get">
+      <arg type="s" name="interface_name" direction="in" />
+      <arg type="s" name="property_name" direction="in" />
+      <arg type="v" name="value" direction="out" />
+    </method>
+    <method name="GetAll">
+      <arg type="s" name="interface_name" direction="in" />
+      <arg type="a{sv}" name="properties" direction="out" />
+    </method>
+    <method name="Set">
+      <arg type="s" name="interface_name" direction="in" />
+      <arg type="s" name="property_name" direction="in" />
+      <arg type="v" name="value" direction="in" />
+    </method>
+    <signal name="PropertiesChanged">
+      <arg type="s" name="interface_name" />
+      <arg type="a{sv}" name="changed_properties" />
+      <arg type="as" name="invalidated_properties" />
+    </signal>
+  </interface>
+  <interface name="org.freedesktop.DBus.Introspectable">
+    <method name="Introspect">
+      <arg type="s" name="xml_data" direction="out" />
+    </method>
+  </interface>
+  <interface name="org.freedesktop.DBus.Peer">
+    <method name="Ping" />
+    <method name="GetMachineId">
+      <arg type="s" name="machine_uuid" direction="out" />
+    </method>
+  </interface>
+  <interface name="net.openvpn.v3.netcfg">
+    <method name="AddIPAddress">
+      <arg type="s" name="ip_address" direction="in"></arg>
+      <arg type="u" name="prefix" direction="in"></arg>
+      <arg type="s" name="gateway" direction="in"></arg>
+      <arg type="b" name="ipv6" direction="in"></arg>
+    </method>
+    <method name="SetRemoteAddress">
+      <arg type="s" name="ip_address" direction="in"></arg>
+      <arg type="b" name="ipv6" direction="in"></arg>
+    </method>
+    <method name="AddNetworks">
+      <arg type="a(subb)" name="networks" direction="in"></arg>
+    </method>
+    <method name="AddDNS">
+      <arg type="as" name="server_list" direction="in"></arg>
+    </method>
+    <method name="AddDNSSearch">
+      <arg type="as" name="domains" direction="in"></arg>
+    </method>
+    <method name="EnableDCO">
+      <arg type="s" name="dev_name" direction="in"></arg>
+      <arg type="o" name="dco_device_path" direction="out"></arg>
+    </method>
+    <method name="Establish">
+    </method>
+    <method name="Disable">
+    </method>
+    <method name="Destroy">
+    </method>
+    <signal name="Log">
+      <arg type="u" name="group"></arg>
+      <arg type="u" name="level"></arg>
+      <arg type="s" name="message"></arg>
+    </signal>
+    <signal name="NetWorkChange">
+      <arg type="u" name="type"></arg>
+      <arg type="s" name="device"></arg>
+      <arg type="a{ss}" name="details"></arg>
+    </signal>
+    <property type="u" name="log_level" access="readwrite">
+    </property>
+    <property type="u" name="owner" access="read">
+    </property>
+    <property type="au" name="acl" access="read">
+    </property>
+    <property type="b" name="active" access="read">
+    </property>
+    <property type="b" name="modified" access="read">
+    </property>
+    <property type="s" name="dns_scope" access="readwrite">
+    </property>
+    <property type="as" name="dns_name_servers" access="read">
+    </property>
+    <property type="as" name="dns_search_domains" access="read">
+    </property>
+    <property type="s" name="device_name" access="read">
+    </property>
+    <property type="u" name="layer" access="readwrite">
+    </property>
+    <property type="u" name="mtu" access="readwrite">
+    </property>
+    <property type="b" name="reroute_ipv4" access="readwrite">
+    </property>
+    <property type="b" name="reroute_ipv6" access="readwrite">
+    </property>
+    <property type="u" name="txqueuelen" access="readwrite">
+    </property>
+  </interface>
+</node>

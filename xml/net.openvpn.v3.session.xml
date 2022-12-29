@@ -1,0 +1,134 @@
+<!DOCTYPE node PUBLIC "-//freedesktop//DTD D-BUS Object Introspection 1.0//EN" "http://www.freedesktop.org/standards/dbus/1.0/introspect.dtd">
+<!-- GDBus 2.72.1 -->
+<node>
+  <interface name="org.freedesktop.DBus.Properties">
+    <method name="Get">
+      <arg type="s" name="interface_name" direction="in" />
+      <arg type="s" name="property_name" direction="in" />
+      <arg type="v" name="value" direction="out" />
+    </method>
+    <method name="GetAll">
+      <arg type="s" name="interface_name" direction="in" />
+      <arg type="a{sv}" name="properties" direction="out" />
+    </method>
+    <method name="Set">
+      <arg type="s" name="interface_name" direction="in" />
+      <arg type="s" name="property_name" direction="in" />
+      <arg type="v" name="value" direction="in" />
+    </method>
+    <signal name="PropertiesChanged">
+      <arg type="s" name="interface_name" />
+      <arg type="a{sv}" name="changed_properties" />
+      <arg type="as" name="invalidated_properties" />
+    </signal>
+  </interface>
+  <interface name="org.freedesktop.DBus.Introspectable">
+    <method name="Introspect">
+      <arg type="s" name="xml_data" direction="out" />
+    </method>
+  </interface>
+  <interface name="org.freedesktop.DBus.Peer">
+    <method name="Ping" />
+    <method name="GetMachineId">
+      <arg type="s" name="machine_uuid" direction="out" />
+    </method>
+  </interface>
+  <interface name="net.openvpn.v3.sessions">
+    <method name="Connect">
+    </method>
+    <method name="Pause">
+      <arg type="s" name="reason" direction="in"></arg>
+    </method>
+    <method name="Resume">
+    </method>
+    <method name="Restart">
+    </method>
+    <method name="Disconnect">
+    </method>
+    <method name="Ready">
+    </method>
+    <method name="AccessGrant">
+      <arg type="u" name="uid" direction="in"></arg>
+    </method>
+    <method name="AccessRevoke">
+      <arg type="u" name="uid" direction="in"></arg>
+    </method>
+    <method name="LogForward">
+      <arg type="b" name="enable" direction="in"></arg>
+    </method>
+    <method name="UserInputQueueGetTypeGroup">
+      <arg type="a(uu)" name="type_group_list" direction="out"></arg>
+    </method>
+    <method name="UserInputQueueFetch">
+      <arg type="u" name="type" direction="in"></arg>
+      <arg type="u" name="group" direction="in"></arg>
+      <arg type="u" name="id" direction="in"></arg>
+      <arg type="u" name="type" direction="out"></arg>
+      <arg type="u" name="group" direction="out"></arg>
+      <arg type="u" name="id" direction="out"></arg>
+      <arg type="s" name="name" direction="out"></arg>
+      <arg type="s" name="description" direction="out"></arg>
+      <arg type="b" name="hidden_input" direction="out"></arg>
+    </method>
+    <method name="UserInputQueueCheck">
+      <arg type="u" name="type" direction="in"></arg>
+      <arg type="u" name="group" direction="in"></arg>
+      <arg type="au" name="indexes" direction="out"></arg>
+    </method>
+    <method name="UserInputProvide">
+      <arg type="u" name="type" direction="in"></arg>
+      <arg type="u" name="group" direction="in"></arg>
+      <arg type="u" name="id" direction="in"></arg>
+      <arg type="s" name="value" direction="in"></arg>
+    </method>
+    <signal name="AttentionRequired">
+      <arg type="u" name="type"></arg>
+      <arg type="u" name="group"></arg>
+      <arg type="s" name="message"></arg>
+    </signal>
+    <signal name="StatusChange">
+      <arg type="u" name="code_major"></arg>
+      <arg type="u" name="code_minor"></arg>
+      <arg type="s" name="message"></arg>
+    </signal>
+    <signal name="Log">
+      <arg type="u" name="group"></arg>
+      <arg type="u" name="level"></arg>
+      <arg type="s" name="message"></arg>
+    </signal>
+    <property type="u" name="owner" access="read">
+    </property>
+    <property type="t" name="session_created" access="read">
+    </property>
+    <property type="au" name="acl" access="read">
+    </property>
+    <property type="b" name="public_access" access="readwrite">
+    </property>
+    <property type="(uus)" name="status" access="read">
+    </property>
+    <property type="a{sv}" name="last_log" access="read">
+    </property>
+    <property type="a{sx}" name="statistics" access="read">
+    </property>
+    <property type="b" name="dco" access="readwrite">
+    </property>
+    <property type="s" name="device_path" access="read">
+    </property>
+    <property type="s" name="device_name" access="read">
+    </property>
+    <property type="o" name="config_path" access="read">
+    </property>
+    <property type="s" name="config_name" access="read">
+    </property>
+    <property type="s" name="session_name" access="read">
+    </property>
+    <property type="u" name="backend_pid" access="read">
+    </property>
+    <property type="b" name="restrict_log_access" access="readwrite">
+    </property>
+    <property type="ao" name="log_forwards" access="read">
+    </property>
+    <property type="u" name="log_verbosity" access="readwrite">
+    </property>
+  </interface>
+</node>

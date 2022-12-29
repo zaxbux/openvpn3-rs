@@ -1,0 +1,72 @@
+<!DOCTYPE node PUBLIC "-//freedesktop//DTD D-BUS Object Introspection 1.0//EN" "http://www.freedesktop.org/standards/dbus/1.0/introspect.dtd">
+<!-- GDBus 2.72.1 -->
+<node>
+  <interface name="org.freedesktop.DBus.Properties">
+    <method name="Get">
+      <arg type="s" name="interface_name" direction="in" />
+      <arg type="s" name="property_name" direction="in" />
+      <arg type="v" name="value" direction="out" />
+    </method>
+    <method name="GetAll">
+      <arg type="s" name="interface_name" direction="in" />
+      <arg type="a{sv}" name="properties" direction="out" />
+    </method>
+    <method name="Set">
+      <arg type="s" name="interface_name" direction="in" />
+      <arg type="s" name="property_name" direction="in" />
+      <arg type="v" name="value" direction="in" />
+    </method>
+    <signal name="PropertiesChanged">
+      <arg type="s" name="interface_name" />
+      <arg type="a{sv}" name="changed_properties" />
+      <arg type="as" name="invalidated_properties" />
+    </signal>
+  </interface>
+  <interface name="org.freedesktop.DBus.Introspectable">
+    <method name="Introspect">
+      <arg type="s" name="xml_data" direction="out" />
+    </method>
+  </interface>
+  <interface name="org.freedesktop.DBus.Peer">
+    <method name="Ping" />
+    <method name="GetMachineId">
+      <arg type="s" name="machine_uuid" direction="out" />
+    </method>
+  </interface>
+  <interface name="net.openvpn.v3.log">
+    <method name="Attach">
+      <arg type="s" name="interface" direction="in"></arg>
+    </method>
+    <method name="AssignSession">
+      <arg type="o" name="session_path" direction="in"></arg>
+      <arg type="s" name="interface" direction="in"></arg>
+    </method>
+    <method name="Detach">
+      <arg type="s" name="interface" direction="in"></arg>
+    </method>
+    <method name="GetSubscriberList">
+      <arg type="a(ssss)" name="subscribers" direction="out"></arg>
+    </method>
+    <method name="ProxyLogEvents">
+      <arg type="s" name="target_address" direction="in"></arg>
+      <arg type="o" name="session_path" direction="in"></arg>
+      <arg type="o" name="proxy_path" direction="out"></arg>
+    </method>
+    <property type="s" name="version" access="read">
+    </property>
+    <property type="s" name="config_file" access="read">
+    </property>
+    <property type="s" name="log_method" access="read">
+    </property>
+    <property type="u" name="log_level" access="readwrite">
+    </property>
+    <property type="b" name="log_dbus_details" access="readwrite">
+    </property>
+    <property type="b" name="log_prefix_logtag" access="readwrite">
+    </property>
+    <property type="b" name="timestamp" access="readwrite">
+    </property>
+    <property type="u" name="num_attached" access="read">
+    </property>
+  </interface>
+</node>

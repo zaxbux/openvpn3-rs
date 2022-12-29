@@ -1,0 +1,72 @@
+<!DOCTYPE node PUBLIC "-//freedesktop//DTD D-BUS Object Introspection 1.0//EN" "http://www.freedesktop.org/standards/dbus/1.0/introspect.dtd">
+<!-- GDBus 2.72.1 -->
+<node>
+  <interface name="org.freedesktop.DBus.Properties">
+    <method name="Get">
+      <arg type="s" name="interface_name" direction="in" />
+      <arg type="s" name="property_name" direction="in" />
+      <arg type="v" name="value" direction="out" />
+    </method>
+    <method name="GetAll">
+      <arg type="s" name="interface_name" direction="in" />
+      <arg type="a{sv}" name="properties" direction="out" />
+    </method>
+    <method name="Set">
+      <arg type="s" name="interface_name" direction="in" />
+      <arg type="s" name="property_name" direction="in" />
+      <arg type="v" name="value" direction="in" />
+    </method>
+    <signal name="PropertiesChanged">
+      <arg type="s" name="interface_name" />
+      <arg type="a{sv}" name="changed_properties" />
+      <arg type="as" name="invalidated_properties" />
+    </signal>
+  </interface>
+  <interface name="org.freedesktop.DBus.Introspectable">
+    <method name="Introspect">
+      <arg type="s" name="xml_data" direction="out" />
+    </method>
+  </interface>
+  <interface name="org.freedesktop.DBus.Peer">
+    <method name="Ping" />
+    <method name="GetMachineId">
+      <arg type="s" name="machine_uuid" direction="out" />
+    </method>
+  </interface>
+  <interface name="net.openvpn.v3.sessions">
+    <method name="NewTunnel">
+      <arg type="o" name="config_path" direction="in"></arg>
+      <arg type="o" name="session_path" direction="out"></arg>
+    </method>
+    <method name="FetchAvailableSessions">
+      <arg type="ao" name="paths" direction="out"></arg>
+    </method>
+    <method name="FetchManagedInterfaces">
+      <arg type="as" name="devices" direction="out"></arg>
+    </method>
+    <method name="LookupConfigName">
+      <arg type="s" name="config_name" direction="in"></arg>
+      <arg type="ao" name="session_paths" direction="out"></arg>
+    </method>
+    <method name="LookupInterface">
+      <arg type="s" name="device_name" direction="in"></arg>
+      <arg type="o" name="session_path" direction="out"></arg>
+    </method>
+    <method name="TransferOwnership">
+      <arg type="o" name="path" direction="in"></arg>
+      <arg type="u" name="new_owner_uid" direction="in"></arg>
+    </method>
+    <signal name="Log">
+      <arg type="u" name="group"></arg>
+      <arg type="u" name="level"></arg>
+      <arg type="s" name="message"></arg>
+    </signal>
+    <signal name="SessionManagerEvent">
+      <arg type="o" name="path"></arg>
+      <arg type="q" name="type"></arg>
+      <arg type="u" name="owner"></arg>
+    </signal>
+    <property type="s" name="version" access="read">
+    </property>
+  </interface>
+</node>

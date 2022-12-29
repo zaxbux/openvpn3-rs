@@ -1,0 +1,80 @@
+<!DOCTYPE node PUBLIC "-//freedesktop//DTD D-BUS Object Introspection 1.0//EN" "http://www.freedesktop.org/standards/dbus/1.0/introspect.dtd">
+<!-- GDBus 2.72.1 -->
+<node>
+  <interface name="org.freedesktop.DBus.Properties">
+    <method name="Get">
+      <arg type="s" name="interface_name" direction="in" />
+      <arg type="s" name="property_name" direction="in" />
+      <arg type="v" name="value" direction="out" />
+    </method>
+    <method name="GetAll">
+      <arg type="s" name="interface_name" direction="in" />
+      <arg type="a{sv}" name="properties" direction="out" />
+    </method>
+    <method name="Set">
+      <arg type="s" name="interface_name" direction="in" />
+      <arg type="s" name="property_name" direction="in" />
+      <arg type="v" name="value" direction="in" />
+    </method>
+    <signal name="PropertiesChanged">
+      <arg type="s" name="interface_name" />
+      <arg type="a{sv}" name="changed_properties" />
+      <arg type="as" name="invalidated_properties" />
+    </signal>
+  </interface>
+  <interface name="org.freedesktop.DBus.Introspectable">
+    <method name="Introspect">
+      <arg type="s" name="xml_data" direction="out" />
+    </method>
+  </interface>
+  <interface name="org.freedesktop.DBus.Peer">
+    <method name="Ping" />
+    <method name="GetMachineId">
+      <arg type="s" name="machine_uuid" direction="out" />
+    </method>
+  </interface>
+  <interface name="net.openvpn.v3.netcfg">
+    <method name="CreateVirtualInterface">
+      <arg type="s" name="device_name" direction="in"></arg>
+      <arg type="o" name="device_path" direction="out"></arg>
+    </method>
+    <method name="FetchInterfaceList">
+      <arg type="ao" name="device_paths" direction="out"></arg>
+    </method>
+    <method name="ProtectSocket">
+      <arg type="s" name="remote" direction="in"></arg>
+      <arg type="b" name="ipv6" direction="in"></arg>
+      <arg type="o" name="device_path" direction="in"></arg>
+      <arg type="b" name="succeded" direction="out"></arg>
+    </method>
+    <method name="DcoAvailable">
+      <arg type="b" name="available" direction="out"></arg>
+    </method>
+    <method name="Cleanup">
+    </method>
+    <method name="NotificationSubscribe">
+      <arg type="u" name="filter" direction="in"></arg>
+    </method>
+    <method name="NotificationUnsubscribe">
+      <arg type="s" name="optional_subscriber" direction="in"></arg>
+    </method>
+    <method name="NotificationSubscriberList">
+      <arg type="a(su)" name="subscriptions" direction="out"></arg>
+    </method>
+    <signal name="Log">
+      <arg type="u" name="group"></arg>
+      <arg type="u" name="level"></arg>
+      <arg type="s" name="message"></arg>
+    </signal>
+    <property type="u" name="global_dns_servers" access="read">
+    </property>
+    <property type="u" name="global_dns_search" access="read">
+    </property>
+    <property type="u" name="log_level" access="readwrite">
+    </property>
+    <property type="s" name="config_file" access="read">
+    </property>
+    <property type="s" name="version" access="read">
+    </property>
+  </interface>
+</node>
