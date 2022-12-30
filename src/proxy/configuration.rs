@@ -9,7 +9,11 @@ use super::configuration_node::{ConfigurationNodeProxy, ConfigurationNodeProxyBl
 
 use zbus::{dbus_proxy, fdo};
 
-/// Configuration Manager
+/// Configuration Service
+///
+/// Stores VPN configuration profiles in a format used by the OpenVPN 3 Core library.
+///
+/// [OpenVPN Documentation](https://github.com/OpenVPN/openvpn3-linux/blob/master/docs/dbus/dbus-service-net.openvpn.v3.configuration.md)
 #[dbus_proxy(
     interface = "net.openvpn.v3.configuration",
     default_service = "net.openvpn.v3.configuration",

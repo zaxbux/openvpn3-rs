@@ -7,9 +7,11 @@ use self::constants::*;
 use super::netcfg_node::{NetCfgNodeProxy, NetCfgNodeProxyBlocking};
 use crate::log::constants::{LogCategory, LogGroup, LogLevel};
 use enumflags2::BitFlags;
-use std::fmt;
 use zbus::dbus_proxy;
 
+/// Network Configuration Service
+///
+/// [OpenVPN Documentation](https://github.com/OpenVPN/openvpn3-linux/blob/master/docs/dbus/dbus-service-net.openvpn.v3.netcfg.md)
 #[dbus_proxy(
     interface = "net.openvpn.v3.netcfg",
     default_service = "net.openvpn.v3.netcfg",
@@ -131,18 +133,6 @@ trait NetCfg {
     /// Version information about the running service.
     #[dbus_proxy(property, name = "version")]
     fn version(&self) -> zbus::Result<String>;
-}
-
-impl fmt::Display for LogArgs<'_> {
-    fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
-        write!(
-            f,
-            "[{}] ({}) - {}",
-            self.category(),
-            self.group(),
-            self.message()
-        )
-    }
 }
 
 pub mod constants {

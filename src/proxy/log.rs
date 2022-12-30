@@ -7,6 +7,11 @@ use zbus::dbus_proxy;
 
 use self::constants::*;
 
+/// Log Service
+///
+/// Log service which receives all Log events from all of the OpenVPN 3 Linux services.
+///
+/// [OpenVPN Documentation](https://github.com/OpenVPN/openvpn3-linux/blob/master/docs/dbus/dbus-service-net.openvpn.v3.log.md)
 #[dbus_proxy(
     interface = "net.openvpn.v3.log",
     default_service = "net.openvpn.v3.log",

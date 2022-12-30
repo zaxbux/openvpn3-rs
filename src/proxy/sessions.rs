@@ -8,6 +8,11 @@ use super::sessions_node::{SessionsNodeProxy, SessionsNodeProxyBlocking};
 use crate::log::constants::{LogGroup, LogLevel};
 use zbus::dbus_proxy;
 
+/// Session Service
+///
+/// Manages all VPN profiles being set up and throughout the whole life cycle until the VPN tunnel is disconnected.
+///
+/// [OpenVPN Documentation](https://github.com/OpenVPN/openvpn3-linux/blob/master/docs/dbus/dbus-service-net.openvpn.v3.sessions.md)
 #[dbus_proxy(
     interface = "net.openvpn.v3.sessions",
     default_service = "net.openvpn.v3.sessions",

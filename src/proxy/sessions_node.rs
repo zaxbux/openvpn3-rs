@@ -7,7 +7,9 @@ use self::constants::*;
 use crate::log::constants::{LogGroup, LogLevel};
 use zbus::{dbus_proxy, fdo};
 
-/// An OpenVPN 3 Session Object
+/// Session Object
+///
+/// [OpenVPN Documentation](https://github.com/OpenVPN/openvpn3-linux/blob/master/docs/dbus/dbus-service-net.openvpn.v3.sessions.md)
 #[dbus_proxy(
     interface = "net.openvpn.v3.sessions",
     default_service = "net.openvpn.v3.sessions",
