@@ -4,7 +4,6 @@
 //!
 
 use async_std::task;
-use openvpn3_rs::NetCfgProxy;
 
 static CONFIG_STR: &str = "
 client
