@@ -1,6 +1,6 @@
 [package]
 name = "openvpn3-rs"
-version = "0.0.1"
+version = "0.0.2"
 authors = ["Zach Schneider <hello@zacharyschneider.ca>"]
 edition = "2021"
 description = "D-Bus bindings for OpenVPN3."
