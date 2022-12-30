@@ -34,62 +34,30 @@
     </method>
   </interface>
   <interface name="net.openvpn.v3.configuration">
-    <method name="Fetch">
-      <arg type="s" name="config" direction="out"></arg>
-    </method>
-    <method name="FetchJSON">
-      <arg type="s" name="config_json" direction="out"></arg>
-    </method>
-    <method name="SetOption">
-      <arg type="s" name="option" direction="in"></arg>
-      <arg type="s" name="value" direction="in"></arg>
-    </method>
-    <method name="SetOverride">
+    <method name="Import">
       <arg type="s" name="name" direction="in"></arg>
-      <arg type="v" name="value" direction="in"></arg>
+      <arg type="s" name="config_str" direction="in"></arg>
+      <arg type="b" name="single_use" direction="in"></arg>
+      <arg type="b" name="persistent" direction="in"></arg>
+      <arg type="o" name="config_path" direction="out"></arg>
     </method>
-    <method name="UnsetOverride">
-      <arg type="s" name="name" direction="in"></arg>
+    <method name="FetchAvailableConfigs">
+      <arg type="ao" name="paths" direction="out"></arg>
     </method>
-    <method name="AccessGrant">
-      <arg type="u" name="uid" direction="in"></arg>
+    <method name="LookupConfigName">
+      <arg type="s" name="config_name" direction="in"></arg>
+      <arg type="ao" name="config_paths" direction="out"></arg>
     </method>
-    <method name="AccessRevoke">
-      <arg type="u" name="uid" direction="in"></arg>
+    <method name="TransferOwnership">
+      <arg type="o" name="path" direction="in"></arg>
+      <arg type="u" name="new_owner_uid" direction="in"></arg>
     </method>
-    <method name="Seal">
-    </method>
-    <method name="Remove">
-    </method>
-    <property type="u" name="owner" access="read">
-    </property>
-    <property type="au" name="acl" access="read">
-    </property>
-    <property type="s" name="name" access="readwrite">
-    </property>
-    <property type="b" name="public_access" access="readwrite">
-    </property>
-    <property type="b" name="persistent" access="read">
-    </property>
-    <property type="b" name="dco" access="readwrite">
-    </property>
-    <property type="t" name="import_timestamp" access="read">
-    </property>
-    <property type="t" name="last_used_timestamp" access="read">
-    </property>
-    <property type="b" name="locked_down" access="readwrite">
-    </property>
-    <property type="a{sv}" name="overrides" access="read">
-    </property>
-    <property type="b" name="readonly" access="read">
-    </property>
-    <property type="b" name="single_use" access="read">
-    </property>
-    <property type="b" name="transfer_owner_session" access="readwrite">
-    </property>
-    <property type="u" name="used_count" access="read">
-    </property>
-    <property type="b" name="valid" access="read">
+    <signal name="Log">
+      <arg type="u" name="group"></arg>
+      <arg type="u" name="level"></arg>
+      <arg type="s" name="message"></arg>
+    </signal>
+    <property type="s" name="version" access="read">
     </property>
   </interface>
 </node>

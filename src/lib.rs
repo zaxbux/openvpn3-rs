@@ -1,5 +1,4 @@
 mod configuration;
-pub mod constants;
 mod error;
 mod proxy;
 mod session;
@@ -8,19 +7,22 @@ use futures_util::future;
 use proxy::sessions::{LogStream, SessionManagerEventStream};
 use zbus::{fdo::PeerProxy, zvariant::OwnedObjectPath, Connection};
 
-pub use configuration::Configuration;
-pub use error::*;
-pub use proxy::*;
-pub use session::Session;
+pub use self::configuration::Configuration;
+pub use self::error::*;
+pub use self::proxy::*;
+pub use self::session::Session;
 
 pub type Result<T> = std::result::Result<T, Error>;
 
+/// OpenVPN 3 Client
+///
+/// Provides convenience methods for creating a new OpenVPN tunnel.
 #[derive(Clone, Debug)]
 pub struct OpenVPN3<'a> {
     connection: Connection,
     peer_proxy: PeerProxy<'a>,
     sessions_proxy: SessionsProxy<'a>,
-    configuration_manager_proxy: ConfigurationManagerProxy<'a>,
+    configuration_manager_proxy: ConfigurationProxy<'a>,
 }
 impl<'a> OpenVPN3<'a> {
     /// Create a new `OpenVPN3` instance.
@@ -32,7 +34,7 @@ impl<'a> OpenVPN3<'a> {
             .path(sessions_proxy.path().to_owned())?
             .build()
             .await?;
-        let configuration_manager_proxy = ConfigurationManagerProxy::new(&connection).await?;
+        let configuration_manager_proxy = ConfigurationProxy::new(&connection).await?;
 
         Ok(OpenVPN3 {
             connection,
@@ -116,8 +118,8 @@ impl<'a> OpenVPN3<'a> {
         Ok(interfaces)
     }
 
-    pub async fn net_cfg_manager(&'a self) -> Result<NetCfgManagerProxy<'static>> {
-        Ok(NetCfgManagerProxy::new(&self.connection).await?)
+    pub async fn net_cfg_manager(&'a self) -> Result<NetCfgProxy<'static>> {
+        Ok(NetCfgProxy::new(&self.connection).await?)
     }
 
     pub async fn event_stream(&self) -> Result<SessionManagerEventStream<'a>> {

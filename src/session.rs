@@ -1,9 +1,10 @@
-use std::collections::HashMap;
-
 use crate::{
-    constants::{ClientAttentionGroup, ClientAttentionType},
-    proxy::session::{AttentionRequiredStream, LogStream, Status, StatusChangeStream},
-    Error, Result, SessionProxy,
+    proxy::sessions_node::{AttentionRequiredStream, LogStream, StatusChangeStream},
+    sessions_node::{
+        constants::{ClientAttentionGroup, ClientAttentionType},
+        result::{Statistics, Status, UserInputQueueTypeGroup},
+    },
+    Error, Result, SessionsNodeProxy,
 };
 
 use zbus::{
@@ -11,14 +12,11 @@ use zbus::{
     CacheProperties, Connection,
 };
 
-pub type UserInputQueueTypeGroup = (ClientAttentionType, ClientAttentionGroup);
-pub type Statistics = HashMap<String, i64>;
-
 #[derive(Clone, Debug)]
 pub struct Session<'a> {
     //pub(crate) _conn: Connection,
     //pub(crate) _path: OwnedObjectPath,
-    pub(crate) proxy: SessionProxy<'a>,
+    pub(crate) proxy: SessionsNodeProxy<'a>,
     //pub(crate) _sessions_proxy: &'a SessionsProxy<'a>,
 }
 
@@ -30,7 +28,7 @@ impl<'a> Session<'a> {
         //sessions_proxy: &'a SessionsProxy<'_>,
         session_path: OwnedObjectPath,
     ) -> Result<Session<'a>> {
-        let proxy = SessionProxy::builder(&conn)
+        let proxy = SessionsNodeProxy::builder(&conn)
             .destination(Self::DBUS_INTERFACE)?
             .path(session_path.clone())?
             .cache_properties(CacheProperties::No)
@@ -150,7 +148,7 @@ impl<'a> Session<'a> {
 }
 
 pub struct UserInputSlot<'a> {
-    proxy: &'a SessionProxy<'a>,
+    proxy: &'a SessionsNodeProxy<'a>,
     qtype: ClientAttentionType,
     qgroup: ClientAttentionGroup,
     qid: u32,
@@ -161,7 +159,7 @@ pub struct UserInputSlot<'a> {
 
 impl<'a> UserInputSlot<'a> {
     pub async fn new(
-        proxy: &'a SessionProxy<'_>,
+        proxy: &'a SessionsNodeProxy<'_>,
         qtype: ClientAttentionType,
         qgroup: ClientAttentionGroup,
         qid: u32,

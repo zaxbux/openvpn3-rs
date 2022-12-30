@@ -3,6 +3,7 @@ use std::fmt;
 #[derive(Debug)]
 pub enum Error {
     Zbus(zbus::Error),
+    Fdo(zbus::fdo::Error),
     Json(serde_json::Error),
     /// Data mismatch when fetching user input queue slots
     UserInputSlotMismatch,
@@ -29,6 +30,12 @@ impl From<zbus::Error> for Error {
     }
 }
 
+impl From<zbus::fdo::Error> for Error {
+    fn from(err: zbus::fdo::Error) -> Self {
+        Self::Fdo(err)
+    }
+}
+
 impl From<serde_json::Error> for Error {
     fn from(err: serde_json::Error) -> Self {
         Self::Json(err)
@@ -39,6 +46,7 @@ impl fmt::Display for Error {
     fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
         match self {
             Error::Zbus(err) => write!(f, "D-Bus Error: {:?}", err),
+            Error::Fdo(err) => write!(f, "D-Bus Error: {:?}", err),
             Error::Json(err) => write!(f, "JSON Error: {}", err),
             Error::UserInputSlotMismatch => write!(f, "Mismatch in User Input Queue Slot"),
             Error::BackendNotReady => write!(f, "Backend VPN process is not ready"),

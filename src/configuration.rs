@@ -3,13 +3,13 @@ use zbus::{
     CacheProperties, Connection,
 };
 
-use crate::{session::Session, ConfigurationProxy, Result, SessionsProxy};
+use crate::{session::Session, ConfigurationNodeProxy, Result, SessionsProxy};
 
 #[derive(Clone, Debug)]
 pub struct Configuration<'a> {
     pub(crate) conn: Connection,
     pub(crate) path: OwnedObjectPath,
-    pub(crate) proxy: ConfigurationProxy<'a>,
+    pub(crate) proxy: ConfigurationNodeProxy<'a>,
     //pub(crate) sessions_proxy: &'a SessionsProxy<'a>,
     pub(crate) sessions_proxy: SessionsProxy<'a>,
     //pub(crate) _configuration_manager_proxy: &'a ConfigurationManagerProxy<'a>,
@@ -25,7 +25,7 @@ impl<'a> Configuration<'a> {
         configuration_path: OwnedObjectPath,
     ) -> Result<Configuration<'a>> {
         let sessions_proxy = SessionsProxy::new(&conn).await?;
-        let proxy = ConfigurationProxy::builder(&conn)
+        let proxy = ConfigurationNodeProxy::builder(&conn)
             .destination(Self::DBUS_INTERFACE)?
             .path(configuration_path.clone())?
             .cache_properties(CacheProperties::No)
